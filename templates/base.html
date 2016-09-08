@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>/Build-A-Blog/</title>
+    </head>
+
+    <style class="text/css">
+      body {
+        font-family: sans-serif;
+        width: 800px;
+        margin: 0 auto;
+        padding: 10px;
+      }
+      .error {
+        color: red;
+      }
+      label {
+        display: block;
+        font-size: 20px;
+      }
+      input [type=text]{
+        width: 400px;
+        font-size: 20px;
+        padding: 2px;
+      }
+      textarea {
+        width: 400px;
+        height: 200px;
+        font-size: 17px;
+        font-family: monospace;
+      }
+      input [type=submit] {
+        font-size: 24px;
+      }
+      hr {
+        margin: 20px auto;
+      }
+      .new + .new {
+        margin_top: 20px;
+      }
+      .new-title {
+        font-weight: bold;
+        font-size: 20px;
+      }
+      .new-body {
+        margin: 0;
+        font-size: 17px;
+      }
+    </style>
+
+    <body>
+        <h1>/Build-A-Blog/</h1>
+
+        <form method="post">
+          <label>
+            <div>post title</div>
+            <input type="text" name="title" value="{{ title }}">
+          </label>
+
+          <label>
+            <div>new post</div>
+            <textarea name="new">{{ new }}</textarea>
+          </label>
+
+          <div class="error">{{ error }}</div>
+
+          <input type="submit">
+        </form>
+
+        <hr>
+
+        {% for new in newposts %}
+          <div class="new">
+            <br>
+            <div class="new-title">{{ new.title }}</div>
+            <br>
+            <pre class="new-body">{{ new.new }}</pre>
+            <br>
+          </div>
+          <hr>
+        {% endfor %}
+
+        <!-- {% block content %}
+        {% endblock %} -->
+
+    </body>
+</html>
