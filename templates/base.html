@@ -35,14 +35,14 @@
       hr {
         margin: 20px auto;
       }
-      .new + .new {
+      .newpost + .newpost {
         margin_top: 20px;
       }
-      .new-title {
+      .newpost-title {
         font-weight: bold;
         font-size: 20px;
       }
-      .new-body {
+      .newpost-body {
         margin: 0;
         font-size: 17px;
       }
@@ -50,38 +50,19 @@
 
     <body>
         <h1>/Build-A-Blog/</h1>
-
-        <form method="post">
-          <label>
-            <div>post title</div>
-            <input type="text" name="title" value="{{ title }}">
-          </label>
-
-          <label>
-            <div>new post</div>
-            <textarea name="new">{{ new }}</textarea>
-          </label>
-
-          <div class="error">{{ error }}</div>
-
-          <input type="submit">
-        </form>
-
+        <h3>
+          <a href='/newpost'>Add New Post</a>
+        </h3>
+        <h3>
+          <a href='/blog'>Posts</a>
+        </h3>
+        <h3>
+          <a href='/'>Main</a>
+        </h3>
         <hr>
 
-        {% for new in newposts %}
-          <div class="new">
-            <br>
-            <div class="new-title">{{ new.title }}</div>
-            <br>
-            <pre class="new-body">{{ new.new }}</pre>
-            <br>
-          </div>
-          <hr>
-        {% endfor %}
-
-        <!-- {% block content %}
-        {% endblock %} -->
+        {% block content %}
+        {% endblock %}
 
     </body>
 </html>

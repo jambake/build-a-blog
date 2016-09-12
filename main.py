@@ -19,37 +19,67 @@ class Handler(webapp2.RequestHandler):
     def render(self, template, **kw):
         self.write(self.render_str(template, **kw))
 
-class Post(db.Model):
+class Posts(db.Model):
 
     title = db.StringProperty(required = True)
-    new = db.TextProperty(required = True)
+    newpost = db.StringProperty(required = True)
     created = db.DateTimeProperty(auto_now_add = True)
 
 class MainPage(Handler):
 
-    def render_front(self, title="", new="", error=""):
-        newposts = db.GqlQuery("SELECT * FROM Post ORDER BY created DESC LIMIT 5")
+    def render_front(self, title="", newpost="", error=""):
+        newposts = db.GqlQuery("SELECT * FROM Posts ORDER BY created DESC LIMIT 5")
 
-        self.render("base.html", title=title, new=new, error=error, newposts=newposts)
+        self.render("blog.html", title=title, newpost=newpost, error=error, newposts=newposts)
+
+    def get(self):
+        self.render_front()
+
+
+class Blog(Handler):
+
+    def render_front(self, title="", newpost="", error=""):
+        newposts = db.GqlQuery("SELECT * FROM Posts ORDER BY created DESC")
+
+        self.render("blog.html", title=title, newpost=newpost, error=error, newposts=newposts)
+
+    def get(self):
+        self.render_front()
+
+class NewPost(Handler):
+
+    def render_front(self, title="", newpost="", error=""):
+        newposts = db.GqlQuery("SELECT * FROM Posts")
+
+        self.render("newpost.html", title=title, newpost=newpost, error=error, newposts=newposts)
 
     def get(self):
         self.render_front()
 
     def post(self):
         title = self.request.get("title")
-        new = self.request.get("new")
+        newpost = self.request.get("newpost")
 
-        if title and new:
-            a = Post(title = title, new = new)
+        if title and newpost:
+            a = Posts(title = title, newpost = newpost)
             a.put()
 
-            self.redirect("/")
+            self.redirect("/blog/%s" % a.key().id())
 
         else:
             error = "We need both a title and blog post!"
-            self.render_front(title, new, error)
+            self.render_front(title, newpost, error)
+
+class ViewPostHandler(webapp2.RequestHandler):
+
+    def get(self, id):
+
+        post_data = Posts.get_by_id(int(id))
+        newpost = post_data.newpost
+        self.response.write(newpost)
+
 
 
 app = webapp2.WSGIApplication([
-    ('/', MainPage)
+    ('/', MainPage), ('/blog', Blog), ('/newpost', NewPost), webapp2.Route('/blog/<id:\d+>', ViewPostHandler)
 ], debug=True)
