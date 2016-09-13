@@ -7,9 +7,19 @@
     <style class="text/css">
       body {
         font-family: sans-serif;
+        background-color: grey;
         width: 800px;
         margin: 0 auto;
         padding: 10px;
+      }
+      h1{
+        color: white;
+      }
+      label div{
+        color: white;
+      }
+      a{
+        color: darkred;
       }
       .error {
         color: red;
@@ -46,19 +56,58 @@
         margin: 0;
         font-size: 17px;
       }
+      /* Remove margins and padding from the list, and add a black background color */
+      ul.topnav {
+         list-style-type: none;
+         margin: 0;
+         padding: 0;
+         overflow: hidden;
+         background-color: #333;
+      }
+
+      /* Float the list items side by side */
+      ul.topnav li {float: left;}
+
+      /* Style the links inside the list items */
+      ul.topnav li a {
+         display: inline-block;
+         color: #f2f2f2;
+         text-align: center;
+         padding: 14px 16px;
+         text-decoration: none;
+         transition: 0.3s;
+         font-size: 17px;
+      }
+
+      /* Change background color of links on hover */
+      ul.topnav li a:hover {background-color: #555;}
+
+      /* Hide the list item that contains the link that should open and close the topnav on small screens */
+      ul.topnav li.icon {display: none;}
     </style>
 
     <body>
+      <ul class="topnav" id="myTopnav">
+        <li><a href='/'>Home</a></li>
+        <li><a href='/blog'>Posts</a></li>
+        <li><a href='/newpost'>Add New Post</a></li>
+        <li><a href='/'>About</a></li>
+        <li class="icon">
+          <a href="javascript:void(0);" onclick="myFunction()">&#9776;</a>
+        </li>
+      </ul>
         <h1>/Build-A-Blog/</h1>
-        <h3>
+        <!-- <h3>
           <a href='/newpost'>Add New Post</a>
+          <a href='/blog'>Posts</a>
+          <a href='/'>Main</a>
         </h3>
         <h3>
           <a href='/blog'>Posts</a>
         </h3>
         <h3>
           <a href='/'>Main</a>
-        </h3>
+        </h3> -->
         <hr>
 
         {% block content %}

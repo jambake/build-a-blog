@@ -7,6 +7,9 @@ from google.appengine.ext import db
 template_dir = os.path.join(os.path.dirname(__file__), "templates")
 jinja_env = jinja2.Environment(loader = jinja2.FileSystemLoader(template_dir), autoescape = True)
 
+#def get_posts(limit, offset):
+
+
 class Handler(webapp2.RequestHandler):
 
     def write(self, *a, **kw):
@@ -77,7 +80,6 @@ class ViewPostHandler(webapp2.RequestHandler):
         post_data = Posts.get_by_id(int(id))
         newpost = post_data.newpost
         self.response.write(newpost)
-
 
 
 app = webapp2.WSGIApplication([
