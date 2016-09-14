@@ -33,7 +33,7 @@ class MainPage(Handler):
     def render_front(self, title="", newpost="", error=""):
         newposts = db.GqlQuery("SELECT * FROM Posts ORDER BY created DESC LIMIT 5")
 
-        self.render("blog.html", title=title, newpost=newpost, error=error, newposts=newposts)
+        self.render("frontpage.html", title=title, newpost=newpost, error=error, newposts=newposts)
 
     def get(self):
         self.render_front()
@@ -81,7 +81,13 @@ class ViewPostHandler(webapp2.RequestHandler):
         newpost = post_data.newpost
         self.response.write(newpost)
 
+class About(Handler):
+
+    def get(self):
+        self.render("about.html")
+
+
 
 app = webapp2.WSGIApplication([
-    ('/', MainPage), ('/blog', Blog), ('/newpost', NewPost), webapp2.Route('/blog/<id:\d+>', ViewPostHandler)
+    ('/', MainPage), ('/blog', Blog), ('/newpost', NewPost), ('/about', About), webapp2.Route('/blog/<id:\d+>', ViewPostHandler)
 ], debug=True)

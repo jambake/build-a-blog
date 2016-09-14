@@ -78,7 +78,9 @@
          transition: 0.3s;
          font-size: 17px;
       }
-
+      .created {
+        font-size: 12px;
+      }
       /* Change background color of links on hover */
       ul.topnav li a:hover {background-color: #555;}
 
@@ -91,12 +93,14 @@
         <li><a href='/'>Home</a></li>
         <li><a href='/blog'>Posts</a></li>
         <li><a href='/newpost'>Add New Post</a></li>
-        <li><a href='/'>About</a></li>
+        <li><a href='/about'>About</a></li>
         <li class="icon">
           <a href="javascript:void(0);" onclick="myFunction()">&#9776;</a>
         </li>
       </ul>
-        <h1>/Build-A-Blog/</h1>
+
+      <h1>Build-A-Blog:
+
         <!-- <h3>
           <a href='/newpost'>Add New Post</a>
           <a href='/blog'>Posts</a>
@@ -108,7 +112,6 @@
         <h3>
           <a href='/'>Main</a>
         </h3> -->
-        <hr>
 
         {% block content %}
         {% endblock %}
