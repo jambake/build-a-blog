@@ -73,13 +73,14 @@ class NewPost(Handler):
             error = "We need both a title and blog post!"
             self.render_front(title, newpost, error)
 
-class ViewPostHandler(webapp2.RequestHandler):
+class ViewPostHandler(Handler):
 
     def get(self, id):
 
         post_data = Posts.get_by_id(int(id))
         newpost = post_data.newpost
-        self.response.write(newpost)
+        title = post_data.title
+        self.render("singlepost.html", title=title, newpost=newpost)
 
 class About(Handler):
 
